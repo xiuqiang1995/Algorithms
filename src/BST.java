@@ -29,7 +29,10 @@ public class BST {
 
     public TreeNode convertBST(TreeNode root) {
         if (root != null) {
-            printTree(root);
+//            printTree(root);
+            // 逆序中序
+            convertInOrder(root);
+            System.out.println();
             System.out.println("打印根结点：" + root.val);
             printChild(root, root.val, root.right, " 的右节点 ", " 无右节点，跳过～");
             convertBST(root.right);
@@ -98,6 +101,17 @@ public class BST {
         inOrder(root.left);
         System.out.print(root.val + " ");
         inOrder(root.right);
+    }
+
+    /**
+     * 逆序中序
+     * @param root
+     */
+    void convertInOrder(TreeNode root){
+        if(root == null) return;
+        convertInOrder(root.right);
+        System.out.print(root.val + " ");
+        convertInOrder(root.left);
     }
 
     /**
