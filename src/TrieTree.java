@@ -1,3 +1,6 @@
+/**
+ * 字典树
+ */
 public class TrieTree {
     private TrieNode root = new TrieNode('/'); // 存储无意义字符
 
