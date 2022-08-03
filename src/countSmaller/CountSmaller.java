@@ -1,20 +1,8 @@
+package countSmaller;
+
 import java.util.*;
 
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * <p>
- * 剑指 Offer 51. 数组中的逆序对
- * 在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
- * <p>
- * 示例：
- * 输入：[7,5,6,4]
- * 输出：5
- * <p>
- * 限制：
- * 0 <= 数组长度 <= 50000
- * <p>
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * <p>
  * 线段树解法
  * 参考题解：https://leetcode.cn/problems/count-of-smaller-numbers-after-self/solution/c-xian-duan-shu-jie-fa-by-dufre/
  * 如果用数组存储线段树，若 2 个值的差很多，就导致需要很大的数组来存储，造成栈溢出。Exception in thread "main" java.lang.StackOverflowError
