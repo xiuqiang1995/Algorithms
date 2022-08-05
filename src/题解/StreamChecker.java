@@ -1,3 +1,5 @@
+package 题解;
+
 class StreamChecker {
 
     private TrieNode root = new TrieNode('/'); // 存储无意义字符
@@ -68,11 +70,11 @@ class StreamChecker {
 }
 
 /**
- * Your StreamChecker object will be instantiated and called as such:
- * StreamChecker obj = new StreamChecker(words);
+ * Your 题解.StreamChecker object will be instantiated and called as such:
+ * 题解.StreamChecker obj = new 题解.StreamChecker(words);
  * boolean param_1 = obj.query(letter);
  * <p>
  * 测试用例：
- * ["StreamChecker","query","query","query","query"]
+ * ["题解.StreamChecker","query","query","query","query"]
  * [[["abc","xyz"]],["a"],["x"],["y"],["z"]]
  */

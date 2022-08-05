@@ -1,4 +1,4 @@
-package countSmaller;
+package 题解.countSmaller;
 
 import java.util.Arrays;
 

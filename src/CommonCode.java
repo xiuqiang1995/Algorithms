@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class TemplateCode {
+public class CommonCode {
     public static void main(String[] args) {
         int[] demo = {1, 2, 3, 4};
 
