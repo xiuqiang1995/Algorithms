@@ -1,89 +1,57 @@
 package test;
 
-/**
- * 归并排序解法
- */
-public class Solution {
-    // 逆序对
-    int count = 0;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-    public int reversePairs(int[] nums) {
-        merge_sort(nums);
-        return count;
+class Solution {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        String[] test = {"42", "10", "O", "t", "y", "p", "g", "B", "96", "H", "5", "v", "P", "52", "25", "96", "b", "L", "Y", "z", "d", "52", "3", "v", "71", "J", "A", "0", "v", "51", "E", "k", "H", "96", "21", "W", "59", "I", "V", "s", "59", "w", "X", "33", "29", "H", "32", "51", "f", "i", "58", "56", "66", "90", "F", "10", "93", "53", "85", "28", "78", "d", "67", "81", "T", "K", "S", "l", "L", "Z", "j", "5", "R", "b", "44", "R", "h", "B", "30", "63", "z", "75", "60", "m", "61", "a", "5", "S", "Z", "D", "2", "A", "W", "k", "84", "44", "96", "96", "y", "M"};
+        System.out.println(Arrays.toString(solution.findLongestSubarray(test)));
     }
 
-
-    public void merge_sort(int[] array) {
-        merge_sort_c(array, 0, array.length - 1);
-    }
-
-    /**
-     * @param array 原数组
-     * @param l     left
-     * @param r     right
-     */
-    public void merge_sort_c(int[] array, int l, int r) {
-        if (l >= r) {
-            return;
-        }
-        int m = l + (r - l) / 2;
-        merge_sort_c(array, l, m);
-        merge_sort_c(array, m + 1, r);
-        merge(array, l, m, r);
-    }
-
-    /**
-     * 将已经有序的array[l...m]和array[m+1...r]合并成一个有序数组，并放入array[l...r]中
-     *
-     * @param array
-     * @param l     left
-     * @param m     middle
-     * @param r     right
-     */
-    public void merge(int[] array, int l, int m, int r) {
-        // 左半边第一个元素
-        int x = l;
-        // 右半边第一个元素
-        int y = m + 1;
-        // 临时数组的下标
-        int z = 0;
-        int[] temp = new int[r - l + 1];
-        while (x <= m && y <= r) {
-            if (array[x] <= array[y]) {
-                temp[z] = array[x];
-                x++;
-                count += (r - m - 1);
-            } else {
-                temp[z] = array[y];
-                y++;
-                count++;
-                System.out.println("l = " + l + ", m = " + m + ", r = " + r + ",count = " + count);
-            }
-            // 临时数组的下标加 1
-            z++;
-        }
-        // 判断哪个数组有剩余的
+    public String[] findLongestSubarray(String[] array) {
+        // 前缀和
+        int s = 0;
+        // 保存第一次
+        Map<Integer, Integer> m = new HashMap<>();
+        // 前缀和数组
+        int[] sum = new int[array.length];
         int start = 0;
         int end = 0;
-        if (x <= m) {
-            // x有剩余
-            start = x;
-            end = m;
-            count += (end - start) * (r - m);
-        } else if (y <= r) {
-            // y 有剩余
-            start = y;
-            end = r;
+        int res = 0;
+        // transform
+        for (int i = 0; i < array.length; i++) {
+            char c = array[i].charAt(0);
+            if (c >= '0' && c <= '9') {
+                // 数字 -1
+                s--;
+            } else {
+                // 字母 + 1
+                s++;
+            }
+            // 前缀和等于0的情况，[0,i] 这段长度数字和字母相同
+            if (s == 0 && i + 1 > res) {
+                start = 0;
+                end = i + 1;
+                res = i + 1;
+            }
+            sum[i] = s;
+            // 判断这个前缀和是否已经出现过
+            Integer integer = m.get(s);
+            if (integer != null) {
+                // 最长子数组
+                if (i - integer > res) {
+                    start = integer + 1;
+                    end = i + 1;
+                    res = i - integer;
+                }
+            } else {
+                m.put(s, i);
+            }
         }
-        // 将剩余的数据拷贝到临时数组tmp
-        for (int i = start; i <= end; i++) {
-            temp[z] = array[i];
-            z++;
-        }
-
-        // 把临时数组拷贝到原数组中
-        if (r - l + 1 >= 0) {
-            System.arraycopy(temp, 0, array, l, r - l + 1);
-        }
+        // 返回最长子数组
+        return Arrays.copyOfRange(array, start, end);
     }
 }
