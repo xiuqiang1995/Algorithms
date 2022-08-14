@@ -1,4 +1,4 @@
-package 模版.排序;
+package template.sort;
 
 import java.util.Arrays;
 import java.util.Random;

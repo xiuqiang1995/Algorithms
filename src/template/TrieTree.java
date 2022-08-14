@@ -1,4 +1,4 @@
-package 模版;
+package template;
 
 /**
  * 字典树
