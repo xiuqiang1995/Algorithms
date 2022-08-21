@@ -4,8 +4,8 @@ package template;
 class MyLinkedList {
 
     /**
-     * ["MyLinkedList","addAtHead","deleteAtIndex","addAtHead","addAtHead","addAtHead","addAtHead","addAtHead","addAtTail","get","deleteAtIndex","deleteAtIndex"]
-     * [[],             [2],        [1],                [2],        [7],        [3],        [2],        [5],        [5],    [5],    [6],            [4]]
+     ["MyLinkedList","addAtHead","deleteAtIndex"]
+     [[],[1],[0]]
      *
      * @param args
      */
@@ -20,17 +20,8 @@ class MyLinkedList {
          * 链接：https://leetcode.cn/problems/design-linked-list
          */
         MyLinkedList l = new MyLinkedList();
-        l.addAtHead(2);
-        l.deleteAtIndex(1);
-        l.addAtHead(2);
-        l.addAtHead(7);
-        l.addAtHead(3);
-        l.addAtHead(2);
-        l.addAtHead(5);
-        l.addAtTail(5);
-        l.get(5);
-        l.deleteAtIndex(6);
-        l.deleteAtIndex(4);
+        l.addAtHead(1);
+        l.deleteAtIndex(0);
     }
 
     // 哨兵节点
@@ -74,55 +65,42 @@ class MyLinkedList {
     }
 
     public void addAtHead(int val) {
-        // 新建一个节点
-        Node node = new Node(val);
-        // 新节点的 next 指向当前的头节点
-        node.next = sentry.next;
-        // 哨兵节点的 next 指向 head
-        sentry.next = node;
-        len++;
+        addAtIndex(0, val);
     }
 
     public void addAtTail(int val) {
-        if (len == 0) {
-            addAtHead(val);
-            return;
-        }
-        len++;
-        Node head = sentry.next;
-        while (head.next != null) {
-            head = head.next;
-        }
-        Node node = new Node(val);
-        node.next = null;
-        head.next = node;
-        tail = node;
+        addAtIndex(len, val);
     }
 
+    /**
+     * 在链表中的第 index 个节点之前添加值为 val 的节点。
+     * 如果 index 等于链表的长度，则该节点将附加到链表的末尾。
+     * 如果 index 大于链表长度，则不会插入节点。如果index小于0，则在头部插入节点。
+     * <p>
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode.cn/problems/design-linked-list
+     *
+     * @param index
+     * @param val
+     */
     public void addAtIndex(int index, int val) {
-        if (index == 0) {
-            addAtHead(val);
-            return;
-        }
-        if (index == len) {
-            addAtTail(val);
-            return;
-        }
         if (index > len) {
             return;
         }
         if (index < 0) {
-            addAtHead(val);
+            index = 0;
         }
+        // 链表长度加一
+        len++;
+
         // 下标 0
-        Node n = sentry.next;
-        for (int i = 0; i < index - 1; i++) {
-            n = n.next;
+        Node pred = sentry;
+        for (int i = 0; i < index; i++) {
+            pred = pred.next;
         }
         Node node = new Node(val);
-        node.next = n.next;
-        n.next = node;
-        len++;
+        node.next = pred.next;
+        pred.next = node;
     }
 
     /**
@@ -136,19 +114,14 @@ class MyLinkedList {
         len--;
 
         // 头节点
-        Node head = sentry.next;
-
-        if (index == 0) {
-            sentry.next = head.next;
-            return;
-        }
+        Node pred = sentry;
 
         // 找到 index-1 个节点
-        for (int i = 1; i < index; i++) {
-            head = head.next;
+        for (int i = 0; i < index; i++) {
+            pred = pred.next;
         }
 
-        head.next = head.next.next;
+        pred.next = pred.next.next;
     }
 }
 
