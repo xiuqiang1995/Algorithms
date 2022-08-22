@@ -1,4 +1,4 @@
-package 题解.maxSatisfied;
+package answer.maxSatisfied;
 
 /**
  * 思路：
