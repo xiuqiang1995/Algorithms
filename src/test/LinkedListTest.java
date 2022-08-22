@@ -1,9 +1,11 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class LinkedListTest {
     public static void main(String[] args) {
+        ArrayList<Object> objects = new ArrayList<>();
         LinkedList<Integer> list = new LinkedList<>();
         list.add(1);
         list.add(2);
